@@ -23,7 +23,7 @@ const quotesRoutes = createRoute()
       .post("/", zValidator("json", createQuote), async (ctx) => {
         const body = ctx.req.valid("json");
         const quote = await quotesRepo.create(body);
-        return ctx.json(quote);
+        return ctx.json(quote, 201);
       });
   });
 
@@ -37,6 +37,7 @@ const app = createRoute()
       .route("/quotes", routes.quotes);
   })
   .app();
+export type App = typeof app;
 
 client.connect().then(() => {
   console.log("MongoDB connected successfully");
