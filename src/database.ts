@@ -1,13 +1,16 @@
-import { createClient, createDatabase } from "monarch-orm";
-import { QuoteSchema } from "./model";
+import {
+  createClient,
+  createDatabase,
+  createSchema,
+  string,
+} from "monarch-orm";
 
+export const QuoteSchema = createSchema("quotes", {
+  message: string(),
+  author: string(),
+});
 
-const client = createClient("mongodb://localhost:27017/monarch-quotes")
-const {collections} = createDatabase(client, {
-    quotes: QuoteSchema
-})
-
-export {
-    client,
-    collections,
-}
+export const client = createClient("mongodb://localhost:27017/monarch-quotes");
+export const db = createDatabase(client, {
+  quotes: QuoteSchema,
+});
