@@ -6,10 +6,7 @@ import { config } from "./src/config";
 const client = hc<App>(`http://localhost:${config.PORT}`);
 
 async function main() {
-  let allQuotes = await client.quotes.all.$get().then((res) => res.json());
-  console.log("before:", allQuotes);
-
-  console.log("\nCreating new random quote...");
+  console.log("Creating new random quote...");
   const generator = getRandom();
   const newQuote = await client.quotes
     .$post({
@@ -21,7 +18,7 @@ async function main() {
     .then((res) => res.json());
   console.log("Created quote:", newQuote, "\n");
 
-  allQuotes = await client.quotes.all.$get().then((res) => res.json());
-  console.log("after:", allQuotes);
+  const allQuotes = await client.quotes.all.$get().then((res) => res.json());
+  console.log(allQuotes);
 }
 main();
