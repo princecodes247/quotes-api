@@ -8,7 +8,10 @@ export type InsertQuote = InferSchemaInput<typeof QuoteSchema>;
 export class QuotesRepository {
   public async getAll(pagination?: PaginationData): Promise<Quote[]> {
     if (!pagination) {
-      const quotes = await db.collections.quotes.find().exec();
+      const quotes = await db.collections.quotes
+        .find()
+        .options({ sort: { _id: -1 } })
+        .exec();
       return quotes as Quote[]; // TODO: remove type cast
     }
 
@@ -19,6 +22,7 @@ export class QuotesRepository {
       .find()
       .skip(skip)
       .limit(pagination.limit)
+      .options({ sort: { _id: -1 } })
       .exec();
     return quotes as Quote[]; // TODO: remove type cast
   }
