@@ -1,4 +1,4 @@
-import { createSchema, string, InferSchemaInput } from "monarch-orm";
+import { InferSchemaOutput, createSchema, string } from "monarch-orm"
 
 
 export const QuoteSchema = createSchema("quotes", {
@@ -6,4 +6,4 @@ export const QuoteSchema = createSchema("quotes", {
     author: string()
 })
 
-export type IQuote = InferSchemaInput<typeof QuoteSchema>
+export type IQuote = InferSchemaOutput<typeof QuoteSchema>
